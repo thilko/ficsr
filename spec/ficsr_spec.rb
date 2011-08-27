@@ -25,7 +25,7 @@ describe Ficsr::Session do
   end
 
   describe "#games" do
-    let(:session) { Ficsr::Session.login "blackhacker", "romeo" }
+    let(:session) { Ficsr::Session.login ENV["ficsr_username"], ENV["ficsr_password"] }
 
     it "returns a list of games" do
       session.games.each { |game| game.should be_a Ficsr::Game }
