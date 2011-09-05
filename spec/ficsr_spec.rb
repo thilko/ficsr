@@ -4,7 +4,7 @@ describe Ficsr::Session do
   describe ".login" do
     context "with valid credentials" do
       it "performs a successful login" do
-        @session = Ficsr::Session.login "blackhacker", "romeo"
+        @session = Ficsr::Session.login ENV["ficsr_username"], ENV["ficsr_password"]
         @session.should_not be_nil
       end
     end
