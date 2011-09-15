@@ -25,11 +25,21 @@ module Ficsr
 
     def games
       send "games", /fics/
-      last_result.split("\n\r").select { |line| p "BLA#{line}"; line =~ /^\d{3}\s\w{1,4}.*$/ }.collect do |game|
+      last_result.split("\n\r").select { |line| line =~ /^\d{3}\s\w{1,4}.*$/ }.collect do |game|
         Ficsr::Game.new game
       end
     end
 
+    def observe(game_number, &action)
+      t = Thread.new do
+        send "observe #{game_number}", /fics/
+        last_result.each_line("\n\r") do |line|
+          action.call(line) if line =~/^<12>/ 
+        end
+      end
+
+      t.join
+    end
 
     private
 
@@ -41,8 +51,14 @@ module Ficsr
       last_result.include?("Starting FICS session as #{username}")
     end
 
-    def send(cmd, match="")
-      @last_result = connection.cmd("String" => cmd, "Match" => match){|p| p p}
+    def send(cmd, match="", opts={}, &actions)
+      all_opts = {"String" => cmd, "Match" => match}.merge opts
+
+      if block_given?
+        @last_result = connection.cmd(all_opts, &actions)
+      else
+        @last_result = connection.cmd(all_opts)
+      end
     end
 
     def last_result

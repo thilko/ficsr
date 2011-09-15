@@ -24,11 +24,20 @@ describe Ficsr::Session do
     end
   end
 
+  let(:session) { Ficsr::Session.login ENV["ficsr_username"], ENV["ficsr_password"] }
+  
   describe "#games" do
-    let(:session) { Ficsr::Session.login ENV["ficsr_username"], ENV["ficsr_password"] }
-
     it "returns a list of games" do
       session.games.each { |game| game.should be_a Ficsr::Game }
+    end
+  end
+
+  describe "#observe" do
+    let(:game_number) { session.games.first.number }
+    it "starts observing the game" do
+      session.observe game_number do |move|
+        p "MOVE: #{move}"  
+      end
     end
   end
 
