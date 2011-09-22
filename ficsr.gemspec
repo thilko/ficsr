@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "ficsr"
   s.version     = Ficsr::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Thilko Richter"]
+  s.email       = [""]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Ruby library for the free internet chess server}
+  s.description = %q{Administration of games any other various thing are possible}
 
   s.rubyforge_project = "ficsr"
 
