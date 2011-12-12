@@ -1,26 +1,11 @@
-module Ficsr 
+module Ficsr
   class Session
 
     class << self
-      def login(username, password="")
-        new(username, password) 
-      end
-    end
 
-    attr_reader :username, :password
+      attr_accessor :username, :password
 
-    def initialize(username, password)
-      @username = username
-      @password = password
-
-      send username, /password|is not a registered name/
-
-      if registered? 
-        send password, /fics|login/
-      else
-        send "\n", /#{username}/
-      end
-      raise "Unable to login with username #{username} " unless logged_in? 
+      alias_method :instance, :new
     end
 
     def games
@@ -34,17 +19,36 @@ module Ficsr
       t = Thread.new do
         send "observe #{game_number}", /fics/
         last_result.each_line("\n\r") do |line|
-          action.call(line) if line =~/^<12>/ 
+          action.call(line) if line =~/^<12>/
         end
       end
 
       t.join
     end
 
+    def login
+      send username, /password|is not a registered name/
+
+      if registered?
+        send password, /fics|login/
+      else
+        send "\n", /#{username}/
+      end
+      raise "Unable to login with username #{username} " unless logged_in?
+    end
+
     private
 
     def connection
       @connection ||= Net::Telnet.new "Host" => host, "Port" => port, "Prompt" => default_prompt
+    end
+
+    def username
+      Ficsr::Session.username
+    end
+
+    def password
+      Ficsr::Session.password
     end
 
     def logged_in?
@@ -66,7 +70,7 @@ module Ficsr
     end
 
     def registered?
-       last_result =~ /is a registered name/ 
+       last_result =~ /is a registered name/
     end
 
     def host
