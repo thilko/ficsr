@@ -1,6 +1,6 @@
 module Ficsr
 
-  CATEGORIES =  { :b => :blitz, :s => :standard, :B => :Bughouse, :l => :lightning, 
+  CATEGORIES =  { :b => :blitz, :s => :standard, :B => :Bughouse, :l => :lightning,
                   :w => :wild,  :L => :losers,   :u => :untimed,  :x => :atomic,
                   :S => :Suicide, :e => :examined_game, :z => :crazyhouse
                 }
@@ -8,26 +8,26 @@ module Ficsr
     def initialize(game_def)
       game_regexp = %r{
       (?<number>^\d*){0}
-      (?<white_rating>\S*){0}                  
-      (?<white_handle>\S*){0}                  
-      (?<black_rating>\S*){0}                  
-      (?<black_handle>\S*){0}                  
-      (?<private>p?){0}                  
-      (?<category>\w?){0}                  
-      (?<rated>\w?){0}                  
-      (?<start_minutes>\d*){0}                  
-      (?<increment_seconds>\d*){0}                  
-      (?<time_white>\d*:\d*:?\d*){0}                  
-      (?<time_black>\d*:\d*:?\d*){0}                  
-      (?<strength_white>\d*){0}                  
-      (?<strength_black>\d*){0}                  
-      (?<turn>[WB]){0}                  
-      (?<move_number>\d*){0}                  
-      
+      (?<white_rating>\S*){0}
+      (?<white_handle>\S*){0}
+      (?<black_rating>\S*){0}
+      (?<black_handle>\S*){0}
+      (?<private>p?){0}
+      (?<category>\w?){0}
+      (?<rated>\w?){0}
+      (?<start_minutes>\d*){0}
+      (?<increment_seconds>\d*){0}
+      (?<time_white>\d*:\d*:?\d*){0}
+      (?<time_black>\d*:\d*:?\d*){0}
+      (?<strength_white>\d*){0}
+      (?<strength_black>\d*){0}
+      (?<turn>[WB]){0}
+      (?<move_number>\d*){0}
+
       \g<number>\s*\g<white_rating>\s*\g<white_handle>\s*\g<black_rating>\s*\g<black_handle>\s*\[\g<private>\s*
       \g<category>\s*\g<rated>\s*\g<start_minutes>\s*\g<increment_seconds>\]\s*\g<time_white>\s*-\s*
       \g<time_black>\s*\(\s*\g<strength_white>\s*-\s*\g<strength_black>\)\s\g<turn>:\s*\g<move_number>$
-      
+
       }x
 
       match_data = game_def.match(game_regexp)

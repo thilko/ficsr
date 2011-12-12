@@ -4,8 +4,8 @@ GAME = "302 1221 vinayakghol ++++ Bhuvi      [psr 15  20]  16:38 - 15:08 (37-39)
 
 describe Ficsr::Game do
   describe ".new" do
-    it "creates a new game object from the given string"  do 
-      Ficsr::Game.new(GAME).should be_a Ficsr::Game 
+    it "creates a new game object from the given string"  do
+      Ficsr::Game.new(GAME).should be_a Ficsr::Game
     end
   end
 
