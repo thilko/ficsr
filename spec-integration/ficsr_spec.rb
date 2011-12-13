@@ -1,17 +1,24 @@
 require "spec_helper"
 
-Ficsr::Session.username = ENV["ficsr_username"]
-Ficsr::Session.password = ENV["ficsr_password"]
-
 describe Ficsr::Session do
   describe ".login" do
     context "with valid credentials" do
+      before do
+        Ficsr::Session.username = ENV["ficsr_username"]
+        Ficsr::Session.password = ENV["ficsr_password"]
+      end
+
       it "performs a successful login" do
         Ficsr::Session.instance.login
       end
     end
 
     context "with invalid credentials" do
+      before do
+        Ficsr::Session.username = "wrong"
+        Ficsr::Session.password = "wrong"
+      end
+
       it "does not login" do
         expect do
           Ficsr::Session.instance.login
@@ -20,6 +27,11 @@ describe Ficsr::Session do
     end
 
     context "with an anonymous user" do
+      before do
+        Ficsr::Session.username = ENV["ficsr_username"]
+        Ficsr::Session.password = ENV["ficsr_password"]
+      end
+
       it "does a login" do
         Ficsr::Session.instance.login
       end

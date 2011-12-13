@@ -24,4 +24,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('mocha', "~> 0.10.0")
   s.add_development_dependency('autotest-growl', "~> 0.2.9")
   s.add_development_dependency('autotest-fsevent', "~> 0.2.5")
+  s.add_development_dependency('guard', "~> 0.8.8")
 end
