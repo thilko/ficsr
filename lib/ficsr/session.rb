@@ -5,7 +5,6 @@ module Ficsr
 
       attr_accessor :username, :password
 
-      alias_method :instance, :new
     end
 
     def games
@@ -37,18 +36,18 @@ module Ficsr
       raise "Unable to login with username #{username} " unless logged_in?
     end
 
-    private
-
-    def connection
-      @connection ||= Net::Telnet.new "Host" => host, "Port" => port, "Prompt" => default_prompt
-    end
-
     def username
       Ficsr::Session.username
     end
 
     def password
       Ficsr::Session.password
+    end
+
+    private
+
+    def connection
+      @connection ||= Net::Telnet.new "Host" => host, "Port" => port, "Prompt" => default_prompt
     end
 
     def logged_in?
@@ -61,6 +60,8 @@ module Ficsr
       if block_given?
         @last_result = connection.cmd(all_opts, &actions)
       else
+        warn all_opts
+        warn connection
         @last_result = connection.cmd(all_opts)
       end
     end

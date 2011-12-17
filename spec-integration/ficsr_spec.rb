@@ -9,7 +9,7 @@ describe Ficsr::Session do
       end
 
       it "performs a successful login" do
-        Ficsr::Session.instance.login
+        Ficsr::Session.new.login
       end
     end
 
@@ -21,7 +21,7 @@ describe Ficsr::Session do
 
       it "does not login" do
         expect do
-          Ficsr::Session.instance.login
+          Ficsr::Session.new.login
         end.to raise_error
       end
     end
@@ -33,13 +33,13 @@ describe Ficsr::Session do
       end
 
       it "does a login" do
-        Ficsr::Session.instance.login
+        Ficsr::Session.new.login
       end
     end
   end
 
   let(:session) do
-    session = Ficsr::Session.instance
+    session = Ficsr::Session.new
     session.login
     session
   end

@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  
+
   s.add_development_dependency('rspec', "~> 2.6.0")
   s.add_development_dependency('autotest', "~> 4.4.6")
   s.add_development_dependency('mocha', "~> 0.10.0")
   s.add_development_dependency('autotest-growl', "~> 0.2.9")
   s.add_development_dependency('autotest-fsevent', "~> 0.2.5")
-  s.add_development_dependency('guard', "~> 0.8.8")
+  s.add_development_dependency('guard-rspec', "~> 0.5.9")
 end
